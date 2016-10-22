@@ -1,0 +1,15 @@
+>	Int32 LibPDBinding.LibPD:SendFloat (String, Single)+0x0 at C:\Users\David\Academics\Fall_2016\Research\puredata-unity\Assets\Magicolo\AudioTools\PureData\LibPD\LibPDNativeMessaging.cs:318	C#
+ 	Boolean Magicolo.AudioTools.PureDataCommunicator:Send (String, Object)+0x7e at C:\Users\David\Academics\Fall_2016\Research\puredata-unity\Assets\Magicolo\AudioTools\PureData\PureDataCommunicator.cs:75	C#
+ 	Boolean Magicolo.AudioTools.PureDataCommunicator:Send (String, Single[])+0x3 at C:\Users\David\Academics\Fall_2016\Research\puredata-unity\Assets\Magicolo\AudioTools\PureData\PureDataCommunicator.cs:59	C#
+ 	Void Magicolo.AudioTools.PureDataCommunicator:SendDelayedMessage (String, Single, Single)+0x4a at C:\Users\David\Academics\Fall_2016\Research\puredata-unity\Assets\Magicolo\AudioTools\PureData\PureDataCommunicator.cs:151	C#
+ 	Void Magicolo.AudioTools.PureDataCommunicator:SendDelayedMessage (String, Single, Boolean)+0xb at C:\Users\David\Academics\Fall_2016\Research\puredata-unity\Assets\Magicolo\AudioTools\PureData\PureDataCommunicator.cs:165	C#
+ 	Void Magicolo.AudioTools.PureDataSequence:SetSequenceSwitch (Boolean, Single)+0x2e at C:\Users\David\Academics\Fall_2016\Research\puredata-unity\Assets\Magicolo\AudioTools\PureData\PureDataSequence.cs:255	C#
+ 	Void Magicolo.AudioTools.PureDataSequence:SwitchOn (Single)+0x3 at C:\Users\David\Academics\Fall_2016\Research\puredata-unity\Assets\Magicolo\AudioTools\PureData\PureDataSequence.cs:223	C#
+ 	Void Magicolo.AudioTools.PureDataSequence:Play (Single)+0xcd at C:\Users\David\Academics\Fall_2016\Research\puredata-unity\Assets\Magicolo\AudioTools\PureData\PureDataSequence.cs:156	C#
+ 	Void PureDataSequenceItem:Play (Single)+0x7 at C:\Users\David\Academics\Fall_2016\Research\puredata-unity\Assets\Magicolo\AudioTools\PureData\PureDataSequenceItem.cs:97	C#
+ 	PureDataSequenceItem Magicolo.AudioTools.PureDataItemManager:PlaySequence (String, Object, Single, PureDataOption[])+0x13 at C:\Users\David\Academics\Fall_2016\Research\puredata-unity\Assets\Magicolo\AudioTools\PureData\PureDataItemManager.cs:34	C#
+ 	PureDataSequenceItem PureData:PlaySequence (String, PureDataOption[])+0x1b at C:\Users\David\Academics\Fall_2016\Research\puredata-unity\Assets\Magicolo\AudioTools\PureData\PureData.cs:429	C#
+ 	Void Magicolo.PureDataSequenceExample:OnGUI ()+0x98 at C:\Users\David\Academics\Fall_2016\Research\puredata-unity\Assets\Magicolo\!Examples\PureData\Scripts\PureDataSequenceExample.cs:21	C#
+
+PureDataSequence.SwitchOn()
+send_float("usequence_switch1", 1.0f)

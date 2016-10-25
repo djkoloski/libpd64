@@ -71,24 +71,57 @@ The DLLs packaged with uPD are compiled for 32-bit, so we need to inject our new
 - `libpd/libs/libpdcsharp.dll` → `Assets/Magicolo/AudioTools/PureData/Plugins/libpdcsharp.dll`
 - `libpd/libs/mingw64/libwinpthread-1.dll` → `Assets/Magicolo/AudioTools/PureData/Plugins/libwinpthread-1.dll`
 
-After copying these DLLs, we're ready to go. Open up an example scene and hit play.
+Unity will now be able to use these DLLs. However, the interface for LibPD has changed since the last update to uPD and we need to change a few things.
+
+- In `Assets/Magicolo/AudioTools/PureData/LibPD/LibPDNativeMethods.cs`
+	- On line 88, change `EntryPoint="libpd_safe_init"` to `EntryPoint="libpd_init"`
+
+That's all of the changes we need to make to get uPD working again. Open up the first example scene and try it out!
+
+## Fixing uPD
+uPD has a few persistent warnings and errors. Let's get ride of those.
+
+- In `Assets/Magicolo/AudioTools/PureData/PureData.cs`
+	- Add `using UnityEngine.SceneManagement;` to the top
+	- Change `OnLevelWasLoaded(int level)` to `OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)`
+	- Add:
+        ```
+		void OnEnable()
+		{
+			SceneManager.sceneLoaded += OnLevelFinishedLoading;
+		}
+		void OnDisable()
+		{
+			SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+		}
+		```
+- In `Assets/Magicolo/GeneralTools/Extensions/AudioClipExtensions.cs`
+    - Remove the `true` argument from the call to `AudioClip.Create` on line 27
+- In `Assets/Magicolo/Extensions/StringExtensions.cs1
+    - Change `charInfo.width` to `charInfo.advance` on lines `142` and `166`
+
+## Fixing LibPD
+LibPD comes with a lot of warnings when we compile it, and we'd like to be able to see if there are any legitimately worrying ones. We can dump the build log to a file using:
+
+```
+$ ./mingw64_build_csharp.bat &> out.txt
+```
+
+Looking at the build log, there appear to be a lot of warnings about casting pointers to integers of a different size. Most of these are because of the type of pure-data's casting between integers and pointers of different sizes now that it's being compiled for 64-bit. We can fix them by changing the type of t_int to be 64-bit.
+
+On line 86 of `m_pd.h`, change:
+
+```
+#define PD_LONGINTTYPE long
+```
+
+to
+
+```
+#define PD_LONGINTTYPE long long int
+```
+
+After recompiling, that's the vast majority of our warnings fixed. The rest of the warnings are pretty benign, so we'll leave them alone for now.
 
 ## State of the project
-The third example scene crashes Unity when the sequence is played. This is currently under investigation.
-
-What has been done so far:
-
-- pure-data has been ported to 64 bit to remove warnings
-- A system for debugging has been put into place so that the crash can be traced into pure-data
-- Traces for the system calls into LibPD have been accrued
-
-## How to debug Unity crashes
-The Unity crashes can't be debugged normally, as libpdcsharp.dll doesn't have MSVC debugging symbols. To debug:
-
-- Open the Task Manager
-- Right click the Unity process
-- Select 'Debug' and choose Visual Studio
-
-When the crash happens, Visual Studio will now be able to retrieve a stack trace. The trace will only be the addresses of the symbols, so we need to be able to map them back to the function calls.
-We'll need to modify our makefile to build libpdcsharp.dll with debug symbols, then strip them out into a separate file with objdump.
-Once we have those symbols, we can look up the stack trace by working backward from the stack address to the first function symbol before it.
+Prior to October 2016, there were bugs in pure-data that caused the third scene (SequenceExample) to crash when the sequence was played. After updating, the third scene works properly.

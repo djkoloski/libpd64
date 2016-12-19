@@ -125,6 +125,8 @@ After recompiling, that's the vast majority of our warnings fixed. The rest of t
 
 # Using patches with uPD
 
+![The sample uPD patch](https://raw.githubusercontent.com/djkoloski/libpd64/master/SamplePatch.png)
+
 uPD makes it really easy to load a patch and start communicating with it.
 
 ## Preparing a patch with PureData

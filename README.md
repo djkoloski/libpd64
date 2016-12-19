@@ -123,5 +123,24 @@ to
 
 After recompiling, that's the vast majority of our warnings fixed. The rest of the warnings are pretty benign, so we'll leave them alone for now.
 
-## State of the project
-Prior to October 2016, there were bugs in pure-data that caused the third scene (SequenceExample) to crash when the sequence was played. After updating, the third scene works properly.
+# Using patches with uPD
+
+uPD makes it really easy to load a patch and start communicating with it.
+
+## Preparing a patch with PureData
+
+To make a patch compatible with uPD, feed their output to `throw~ Master_left` and `throw~ Master_right` objects.
+Patches must be placed in `Assets/StreamingAssets/Patches`.
+
+## Communicating with a patch
+
+To open a patch and start it, call PureData.OpenPatch(...) with your patch's name.
+To communicate with a patch, call PureData.Send(...) with the event name and any arguments.
+
+# Example
+
+An example patch is in `Assets/StreamingAssets/Patches/samplePatch.pd`.
+
+A script that communicates with the patch is in `Assets/Scripts/PureDataPatchLoadingExample.cs`.
+
+You can demo this script by opening `Assets/Scenes/PatchLoading.unity`.

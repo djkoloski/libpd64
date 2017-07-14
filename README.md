@@ -97,7 +97,7 @@ uPD has a few persistent warnings and errors. Let's get ride of those.
 		```
 - In `Assets/Magicolo/GeneralTools/Extensions/AudioClipExtensions.cs`
     - Remove the `true` argument from the call to `AudioClip.Create` on line 27
-- In `Assets/Magicolo/Extensions/StringExtensions.cs1
+- In `Assets/Magicolo/GeneralTools/Extensions/StringExtensions.cs`
     - Change `charInfo.width` to `charInfo.advance` on lines `142` and `166`
 
 ## Fixing LibPD

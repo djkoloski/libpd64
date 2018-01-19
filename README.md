@@ -58,7 +58,7 @@ $ git clone https://github.com/Magicolo/uPD
 
 Then make a new Unity project that you want to use LibPD with. Go to `Assets > Import Package > Custom Package` and select `uPD/uPD.unitypackage`. Import all assets, then select that you made a backup and are ready to upgrade.
 
-uPD has a few rough edges, ignore the UnauthorizedAccessException about being unable to copy `libpdcsharp.dll` for now.
+uPD has a few rough edges; you should get an UnauthorizedAccessException about being unable to copy `libpdcsharp.dll`. We'll fix it later.
 
 Example scenes are:
 
@@ -99,6 +99,8 @@ uPD has a few persistent warnings and errors. Let's get ride of those.
     - On line 27, replace the `true, false` arguments in the call to `AudioClip.Create` with just `false`
 - In `Assets/Magicolo/GeneralTools/Extensions/StringExtensions.cs`
     - Change `charInfo.width` to `charInfo.advance` on lines `142` and `166`
+- In `Assets/Magicolo/AudioTools/PureData/PureDataPluginManager.cs`
+    - Comment out or delete the body of `CheckPlugins()` on lines `47` through `58`.
 
 ## Fixing LibPD
 LibPD comes with a lot of warnings when we compile it, and we'd like to be able to see if there are any legitimately worrying ones. We can dump the build log to a file using:

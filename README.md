@@ -8,11 +8,12 @@ MSYS2 is a particularly good one.
 
 [Download MSYS2 here](http://msys2.github.io/)
 
-MSYS2 doesn't come with a compiler as part of the base package, so you'll need to install gcc next. From an MSYS2 terminal, run:
+MSYS2 doesn't come with a compiler as part of the base package, so you'll need to install gcc and make next. From an MSYS2 terminal, run:
 
 ```
 $ pacman -Sy
 $ pacman -S mingw-w64-x86_64-gcc
+$ pacman -S make
 ```
 
 Finally, you'll need a [git installation](https://git-scm.com/downloads) if you don't already have one.
